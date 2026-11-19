@@ -25,7 +25,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run pytest
-        run: pytest    
+      - name: Run pytest and generate reports
+        run: |
+          mkdir -p reports
+          pytest \
+            --html=reports/report.html \
+            --self-contained-html \
+            --cov=api \
+            --cov-config=.coveragerc \
+            --cov-report=html:htmlcov \
+            --cov-report=term-missing
+
+      - name: upload test reports #Ref.: https://github.com/actions/upload-artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pytest-reports
+          path: |
+            reports/
+            htmlcov/
+          retention-days: 30      
           
       
