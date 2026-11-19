@@ -32,6 +32,7 @@ jobs:
             --html=reports/report.html \
             --self-contained-html \
             --cov=api \
+            --cov-config=.coveragerc \
             --cov-report=html:htmlcov \
             --cov-report=term-missing
 
