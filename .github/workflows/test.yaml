@@ -8,15 +8,15 @@ on:
       - main    
 
 jobs: 
-  example:
+  test:
     runs-on: ubuntu-latest 
 
     steps: #this step checks-out the repositoy under $GITHUB_WORKSPACE, so GitHub actions runner can access it.
       - name: Checkout code #Ref.: https://github.com/actions/checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5 #Ref.: https://github.com/actions/setup-python
+        uses: actions/setup-python@v7 #Ref.: https://github.com/actions/setup-python
         with:
           python-version: '3.13' #value comes from the documentation refered above
 
