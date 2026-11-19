@@ -6,7 +6,7 @@ app_name = 'api'
 
 urlpatterns = [
     re_path(
-        r"", health_view, name='health'
+        r"^$", health_view, name='health'
     ),
     re_path(
         r"^pets/", pet_view, name='pets'
