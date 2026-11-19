@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p reports
           pytest \
-            --html=reports/report.html
+            --html=reports/report.html \
             --self-contained-html \
             --cov=api \
             --cov-report=html:htmlcov \
