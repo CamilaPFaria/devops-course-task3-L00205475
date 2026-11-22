@@ -4,7 +4,6 @@ from django.db import models
 class Pet(models.Model):
     name = models.CharField(max_length=50)
     species = models.CharField(max_length=50)
-    age = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 

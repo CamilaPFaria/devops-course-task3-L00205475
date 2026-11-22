@@ -45,5 +45,46 @@ jobs:
             reports/
             htmlcov/
           retention-days: 30      
+
+  runmigrations:
+    runs-on: ubuntu-latest 
+
+    steps: #this step checks-out the repositoy under $GITHUB_WORKSPACE, so GitHub actions runner can access it.
+      - name: Checkout code #Ref.: https://github.com/actions/checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7 #Ref.: https://github.com/actions/setup-python
+        with:
+          python-version: '3.13' #value comes from the documentation refered above
+
+      - name: Install dependencies #step to install all dependencies listed on the requirements.txt file
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run django migrate
+        run: python manage.py migrate
           
+
+  migrations-check: #check if there any pendings migrations to be created. Useful to keep the integrity of the data while working with other developers. 
+    runs-on: ubuntu-latest 
+
+    steps: #this step checks-out the repositoy under $GITHUB_WORKSPACE, so GitHub actions runner can access it.
+      - name: Checkout code #Ref.: https://github.com/actions/checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7 #Ref.: https://github.com/actions/setup-python
+        with:
+          python-version: '3.13' #value comes from the documentation refered above
+
+      - name: Install dependencies #step to install all dependencies listed on the requirements.txt file
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run makemigrations
+        run: python manage.py makemigrations --check #check if there any pendings migrations to be created. 
+                        
       
