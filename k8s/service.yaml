@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service #network endpoint for the application
+metadata:
+  name: pet-catalog-service
+spec:
+  type: NodePort #makes the application accessible through a port on the Minikube node
+  selector:
+    app: pet-catalog
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+ 

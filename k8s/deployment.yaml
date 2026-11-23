@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pet-catalog
+spec:
+  replicas: 1 #runs one instance of the Django application.
+  selector:
+    matchLabels:
+      app: pet-catalog
+  template:
+    metadata:
+      labels:
+        app: pet-catalog
+    spec:
+      containers:
+        - name: pet-catalog
+          image: pet-catalog:latest #uses the Docker image that was dpeloyed into Minikube
+          imagePullPolicy: Never #tells Kubernetes to use the local image instead of trying to download it.
+          ports:
+            - containerPort: 8000
+          readinessProbe: #Checks if Django is ready to receive requests.
+            httpGet:
+              path: /api/pets/
+              port: 8000
+              httpHeaders: #tells Django to accept health-check requests if localhost is in the ALLOWED_HOSTS.
+                - name: Host
+                  value: localhost
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          livenessProbe: #Checks if Django is still responding.
+            httpGet:
+              path: /api/pets/
+              port: 8000
+              httpHeaders:
+                - name: Host
+                  value: localhost
+            initialDelaySeconds: 20
+            periodSeconds: 10      
