@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-qhfvj8a+2)ai@r1p#iq)u$--hcgv#h(o@zu70^&wcib9^s(i*&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1', 
+    'pet-catalog-service',
+    'pet-catalog-service.default.svc.cluster.local',
+]
 
 
 # Application definition
